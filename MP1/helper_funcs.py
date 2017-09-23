@@ -1,3 +1,29 @@
+def readMaze(name = "mediumMaze.txt"):
+    f = open("mediumMaze.txt","r")
+    message = f.read()
+    print(message)
+    f.close()
+
+class Queue:
+    def __init__(self):
+        self.items = []
+
+    def isEmpty(self):
+        return self.items == []
+
+    def enqueue(self, item):
+        self.items.insert(0,item)
+
+    def dequeue(self):
+        return self.items.pop()
+
+    def size(self):
+        return len(self.items)
+
+def heuristic(current,terminate):
+    return abs(current[0] - terminate[0]) + abs(current[1] - terminate[1])    
+    
+    
 def inputMaze(name="bigMaze.txt"):
 with open(name) as mazeTxt:
 	# read every line of the txt file, while ignoring last two chars of each line, since they are line break symbols
