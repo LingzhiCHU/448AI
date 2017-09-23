@@ -18,3 +18,19 @@ def findStartNGoal(maze):
             if maze[i][j] == '.':
                 goal = (i,j)
     return [start, goal]
+
+
+# return a list of all the valid neighbors's index(coordinate)
+def valid_neighbors(center, maze, height, width):
+    y = center[0]
+    x = center[1]
+    valid_neighbors = []
+    if (x+1) < width and maze[y][x+1] != '%':
+        valid_neighbors.append((y,x+1))
+    if (x-1) >= 0 and maze[y][x-1] != '%':
+        valid_neighbors.append((y,x-1))
+    if (y+1) < height and maze[y+1][x] != '%':
+        valid_neighbors.append((y+1,x))
+    if (y-1) >= 0 and maze[y-1][x] != '%':
+        valid_neighbors.append((y-1,x))
+    return valid_neighbors
