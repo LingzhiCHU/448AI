@@ -27,9 +27,8 @@ def heuristic(current,terminate):
 def inputMaze(name="bigMaze.txt"):
 with open(name) as mazeTxt:
 	# read every line of the txt file, while ignoring last two chars of each line, since they are line break symbols
-    maze = [list(line)[0:-2] for line in mazeTxt]
+    maze = [list(line)[0:-1] for line in mazeTxt]
     rows = len(maze)
-    maze[rows-1].append('%')
     maze[rows-1].append('%')
 return maze         # returns a 2D array
 
