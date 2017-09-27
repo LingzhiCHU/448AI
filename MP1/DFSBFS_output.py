@@ -15,11 +15,13 @@ def DFSBFS(maze,search_method):
     ele_list = []
     ele_list.insert(0,start)
    
+    count = 0 
     #mark as visited
     visited[start[0]*width+start[1]] = True
 
     while ele_list:
         curr = ele_list.pop()
+        count+=1
         if curr == goal:
             break
 
@@ -40,12 +42,22 @@ def DFSBFS(maze,search_method):
     while curr!=None:
         bookkeeping.insert(0,curr)
         curr = path[curr[0]*width+curr[1]]
-
-    return bookkeeping
-
+    #print(count)
+    return [bookkeeping,count]
 
 def outputMaze(maze,search_method,filename):
-    path = DFSBFS(maze,search_method)
+    #import time
+    #t = time.time()
+    if search_method < 2:
+        ret = (DFSBFS(maze,search_method))
+    else:
+        if search_method == 2:
+            ret = GreedyBestFirst(maze)
+        else:
+            ret = Astar(maze) 
+    #t = time.time()-t
+    path = ret[0]
+    mem = ret[1]
     for i in range(1,len(path)):
         maze[(path[i])[0]][(path[i])[1]] = '.'
     f = open(filename,"w")
@@ -53,4 +65,7 @@ def outputMaze(maze,search_method,filename):
         for j in range(len(maze[0])):
             f.write(maze[i][j])
         f.write('\n')
+    f.write("cost is %d \n" %(len(path)-1))
+    f.write("number of expanded nodes is %d \n"%mem)
+    #f.write("time elapsed is %f s" %t)
     f.close()
